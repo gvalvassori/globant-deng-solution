@@ -5,7 +5,10 @@ from sqlalchemy import NullPool
 from sqlalchemy.orm import scoped_session
 
 # Useful for serverless ms
-SingletonDB.default_engine_params = {"poolclass": NullPool, "connect_args": {"connect_timeout": 10}}
+SingletonDB.default_engine_params = {
+    "poolclass": NullPool,
+    "connect_args": {"connect_timeout": 10},
+}
 
 
 def get_session() -> Generator:

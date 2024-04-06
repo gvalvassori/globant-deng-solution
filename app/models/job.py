@@ -1,6 +1,7 @@
 from db.base_class import Base
 from sqlalchemy import Integer, String
-from sqlalchemy.orm import mapped_column, Mapped
+from sqlalchemy.orm import Mapped, mapped_column
+
 
 class Job(Base):
     __tablename__ = "jobs"

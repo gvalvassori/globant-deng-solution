@@ -17,3 +17,5 @@ mangum-extra-handlers==0.0.1
 python-jose==3.3.0
 PyMySQL==1.1.0
 cryptography==42.0.1
+pandas==2.2.1
+python-multipart==0.0.9
