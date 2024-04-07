@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 
 class LoadEmployeeService(BaseService):
     def __init__(self, session: Session) -> None:
+        super().__init__(session)
         self.repository = EmployeeRepository(session)
 
     def _et(self, reader: pd.io.parsers.readers.TextFileReader) -> EmployeeCSV:

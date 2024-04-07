@@ -24,7 +24,7 @@ app = FastAPI(
 app = VersionedFastAPI(app, root_path=project_settings.RootPath)
 
 # ==== Include internal routes
-app.include_router(api_router, prefix="/internal")
+app.include_router(api_router, prefix="/api")
 
 # ==== Logging
 logger = logging.getLogger("app")

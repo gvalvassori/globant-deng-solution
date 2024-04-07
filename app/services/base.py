@@ -1,7 +1,14 @@
 import pandas as pd
+from repositories.department import DepartmentRepository
+from repositories.job import JobRepository
+from sqlalchemy.orm import Session
 
 
 class BaseService:
+    def __init__(self, session: Session):
+        self.department_repository = DepartmentRepository(session)
+        self.job_repository = JobRepository(session)
+
     def file_extension(self, extension: str):
         if extension != "csv":
             raise ValueError("Invalid file extension. Only CSV files are allowed.")
@@ -25,3 +32,15 @@ class BaseService:
         except StopIteration:
             # If the reader is empty, raise an error
             raise ValueError("The input file is empty.")
+        
+    def validate_constrains(self):
+        """Validate if the database has data.
+
+        Raises:
+            ValueError: If the database is empty.
+        """
+        job_data = self.job_repository.get_all()
+        department_data = self.department_repository.get_all()
+
+        if len(department_data) == 0 or len(job_data) == 0:
+            raise ValueError("No data found in the databases Jobs or Deparments. Please load the data first.")

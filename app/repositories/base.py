@@ -48,16 +48,20 @@ def only_tests(method_or_func: classmethod | staticmethod | Callable[..., Any]) 
     return wrapper
 
 
-# endregion
-
-
 class ModelRepository:
     model: Any = cast(Model, None)
-    field_not_found: Exception = None  # type: ignore[assignment]
-    already_exists_error: Exception = None  # type: ignore[assignment]
 
     def __init__(self, session: Session):
         self.session = session
+
+    @model_required
+    def get_all(self) -> list[ModelType]:
+        """
+        Gets all records from the table.
+
+        :return: a list of models, example = ["<ModelType 1>", "<ModelType 2>", ...]
+        """
+        return self.session.query(self.model).all()  # noqa
 
     @model_required
     def bulk_insert(self, list_instances: list[ModelType]) -> bool:
@@ -70,6 +74,6 @@ class ModelRepository:
         try:
             self.session.bulk_save_objects(list_instances)
             self.session.commit()
-            return True
-        except SQLAlchemyError:
-            return False
+            return f"A total of {len(list_instances)} instances were inserted in the database."
+        except SQLAlchemyError as e:
+            return f"An error occurred while inserting the instances: {e}"
