@@ -27,9 +27,9 @@ The solution follows a layered architecture, which separates the concerns of the
 To get started with the project, follow these steps:
 
 1. Clone the repository from GitHub.
-2. Run `docker-compose build`
-3. Run `docker-compose up app`
-4. Run `docker-compose run migrations` -> This runs the database migrations
+2. Run `docker compose build`
+3. Run `docker compose up app`
+4. Run `docker compose run migrations` -> This runs the database migrations
 
 ## API Endpoints
 

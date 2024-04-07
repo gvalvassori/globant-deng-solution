@@ -1,3 +1,5 @@
+
+
 services:
   db:
     image: mysql:8.3.0
@@ -33,10 +35,12 @@ services:
 
   migrations:
     <<: *appbase
+    container_name: msapp_migrations
     command: alembic upgrade head
 
   lint:
-    <<: *appbase
+    container_name: msapp_lint
+    build: .
     command: >
       bash -c "
         ruff check app &&
@@ -46,6 +50,6 @@ services:
       "
 
   tests:
-    <<: *appbase
     container_name: msapp_tests
+    build: .
     command: pytest tests
