@@ -1,7 +1,7 @@
 """init
 
 Revision ID: cbbb144eb17c
-Revises: 
+Revises:
 Create Date: 2024-04-06 22:32:41.060842+00:00
 
 """
@@ -44,14 +44,10 @@ def upgrade() -> None:
             ["departments.id"],
             name=op.f("fk_hired_employees-department_id-departments"),
         ),
-        sa.ForeignKeyConstraint(
-            ["job_id"], ["jobs.id"], name=op.f("fk_hired_employees-job_id-jobs")
-        ),
+        sa.ForeignKeyConstraint(["job_id"], ["jobs.id"], name=op.f("fk_hired_employees-job_id-jobs")),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_hired_employees")),
     )
-    op.create_index(
-        op.f("ix_hired_employees_id"), "hired_employees", ["id"], unique=False
-    )
+    op.create_index(op.f("ix_hired_employees_id"), "hired_employees", ["id"], unique=False)
     # ### end Alembic commands ###
 
 

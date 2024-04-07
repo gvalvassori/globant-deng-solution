@@ -34,9 +34,7 @@ class LoadDepartmentService(BaseService):
                 data.data.append(department)
         return data
 
-    def load(
-        self, reader: pd.io.parsers.readers.TextFileReader
-    ) -> DepartmentRepository.model:
+    def load(self, reader: pd.io.parsers.readers.TextFileReader) -> DepartmentRepository.model:
         """Load the data into the database.
 
         Args:

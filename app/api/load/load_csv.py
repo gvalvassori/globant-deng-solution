@@ -17,9 +17,7 @@ logger = logging.getLogger(f"app.{__name__}")
 
 @router.post("/load/departments", status_code=status.HTTP_201_CREATED)
 @version(1, 0)
-async def load_departments(
-    file: UploadFile = File(...), db: Session = Depends(get_session)
-):
+async def load_departments(file: UploadFile = File(...), db: Session = Depends(get_session)) -> str:
     logger.info(f"Loading departments from file {file.filename}")
     reader = pd.read_csv(
         file.file,
@@ -35,11 +33,9 @@ async def load_departments(
 
 @router.post("/load/jobs", status_code=status.HTTP_201_CREATED)
 @version(1, 0)
-async def load_jobs(file: UploadFile = File(...), db: Session = Depends(get_session)):
+async def load_jobs(file: UploadFile = File(...), db: Session = Depends(get_session)) -> str:
     logger.info(f"Loading jobs from file {file.filename}")
-    reader = pd.read_csv(
-        file.file, header=None, names=["id", "job"], chunksize=1000, iterator=True
-    )
+    reader = pd.read_csv(file.file, header=None, names=["id", "job"], chunksize=1000, iterator=True)
     service = LoadJobService(db)
     service.file_extension(file.filename.split(".")[-1])
     return service.load(reader)
@@ -47,9 +43,7 @@ async def load_jobs(file: UploadFile = File(...), db: Session = Depends(get_sess
 
 @router.post("/load/employees", status_code=status.HTTP_201_CREATED)
 @version(1, 0)
-async def load_employees(
-    file: UploadFile = File(...), db: Session = Depends(get_session)
-):
+async def load_employees(file: UploadFile = File(...), db: Session = Depends(get_session)) -> str:
     logger.info(f"Loading employees from file {file.filename}")
     reader = pd.read_csv(
         file.file,

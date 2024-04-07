@@ -3,8 +3,7 @@ import logging
 from api.router import api_router
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
-from fastapi_exceptionshandler import (APIExceptionHandler,
-                                       APIExceptionMiddleware)
+from fastapi_exceptionshandler import APIExceptionHandler, APIExceptionMiddleware
 from fastapi_versioning import VersionedFastAPI
 from middlewares.logging_middleware import LoggingMiddleware
 from pydantic import ValidationError

@@ -5,8 +5,7 @@ import time
 from typing import Any, ClassVar
 
 from fastapi import Request, Response
-from starlette.middleware.base import (BaseHTTPMiddleware, DispatchFunction,
-                                       RequestResponseEndpoint)
+from starlette.middleware.base import BaseHTTPMiddleware, DispatchFunction, RequestResponseEndpoint
 from starlette.types import ASGIApp, Receive
 
 EMPTY_VALUE = ""
@@ -75,9 +74,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
         request._receive = ReceiveProxy(receive=request.receive, cached_body=body)
         return body
 
-    async def dispatch(
-        self, request: Request, call_next: RequestResponseEndpoint
-    ) -> Response:
+    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
         if request.url.path in PASS_ROUTES:
             return await call_next(request)
 
@@ -96,9 +93,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
                 "request_path": request.url.path,
                 "request_host": f"{server[0]}:{server[1]}" if server else None,
                 "request_size": int(request_headers.get("content-length", 0)),
-                "request_content_type": request_headers.get(
-                    "content-type", EMPTY_VALUE
-                ),
+                "request_content_type": request_headers.get("content-type", EMPTY_VALUE),
                 "request_headers": request_headers,
                 "request_body": str(request_body),
             },

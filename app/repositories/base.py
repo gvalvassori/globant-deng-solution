@@ -38,9 +38,7 @@ def only_tests(method_or_func: classmethod | staticmethod | Callable[..., Any]) 
     @wraps(method_or_func)
     def wrapper(self=None, *args: Any, **kwargs: Any) -> Any:
         if str(os.environ.get("PYTEST_RUNNING")).lower() != "true":
-            raise NotImplementedError(
-                "You cannot use this method outside test environment"
-            )
+            raise NotImplementedError("You cannot use this method outside test environment")
         if self:
             return method_or_func(self, *args, **kwargs)
         return method_or_func(*args, **kwargs)
@@ -64,7 +62,7 @@ class ModelRepository:
         return self.session.query(self.model).all()  # noqa
 
     @model_required
-    def bulk_insert(self, list_instances: list[ModelType]) -> bool:
+    def bulk_insert(self, list_instances: list[ModelType]) -> str:
         """
         Inserts a list of instances in the database.
 

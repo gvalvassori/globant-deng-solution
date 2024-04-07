@@ -48,10 +48,6 @@ class SingletonDB:
         if cls.session_ro_instance:
             return cls.session_ro_instance
 
-        engine = cls.get_engine(
-            isolation_level="READ UNCOMMITTED", **cls.default_engine_params
-        )
-        cls.session_ro_instance = sessionmaker(
-            engine, autoflush=False, autocommit=False
-        )
+        engine = cls.get_engine(isolation_level="READ UNCOMMITTED", **cls.default_engine_params)
+        cls.session_ro_instance = sessionmaker(engine, autoflush=False, autocommit=False)
         return cls.session_ro_instance

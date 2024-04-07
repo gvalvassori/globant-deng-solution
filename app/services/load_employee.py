@@ -38,9 +38,7 @@ class LoadEmployeeService(BaseService):
                 data.data.append(employee)
         return data
 
-    def load(
-        self, reader: pd.io.parsers.readers.TextFileReader
-    ) -> EmployeeRepository.model:
+    def load(self, reader: pd.io.parsers.readers.TextFileReader) -> EmployeeRepository.model:
         """Load the data into the database.
 
         Args:
